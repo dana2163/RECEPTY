@@ -1,0 +1,75 @@
+{% extends '../base.twig' %}
+
+{% block content %}
+    {% if 'admin' in user.roles %}
+    <h2>Dostupné len pre administrátora</h2>
+    {% endif %}
+    <!-- Formular na pridanie noveho postu viditelny len pre prihlasenych userov -->
+    <form action="/post/new" method="post">
+        <div class="card mt-2">
+            <div class="card-header">Pridať nový recept</div>
+            <div class="card-body">
+                <label for="nazov">Nazov:</label>
+                <input type="text" class="form-control" name="nazov">
+                <label for="postup">Postup:</label>
+                <textarea class="form-control" name="postup"></textarea>
+                <label for="cas_pripravy">Cas pripravy:</label>
+                <input type="text" class="form-control" name="cas_prpravy">
+                <label for="narocnost">Narocnost:</label>
+                <select class="form-control" name="narocnost">
+                    <option value="Tazka">Tazka</option>
+                    <option value="Stredna">Stredna</option>
+                    <option value="Lahka">Lahka</option>
+                </select>
+                <label for="kategoria">Kategoria:</label>
+                <select class="form-control" name="kategoria">
+                    <option value="Polievka">Polievka</option>
+                    <option value="Hlavne jedlo">Hlavne jedlo</option>
+                    <option value="Priloha">Priloha</option>
+                    <option value="Dezert">Dezert</option>
+                </select>
+{#                <label for="dat_kon">Datum konania:</label>#}
+{#                <input type="text" placeholder="yyyy-mm-dd" class="form-control" name="dat_kon">#}
+{#                <label for="mie_kon">Miesto konania:</label>#}
+{#                <input type="text" class="form-control" name="mie_kon">#}
+{#                <label for="region">Region:</label>#}
+{#                <input type="text" class="form-control" name="region">#}
+            </div>
+            <div class="card-footer">
+                <input type="submit" class="btn btn-success float-end" value="Odoslať">
+            </div>
+        </div>
+        <!-- Zoradenie postov pre admina -->
+        {% if 'admin' in user.roles %}
+        <div class="nav-item dropdown" style="margin-top: 10px;">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Zoradit podla:</a>
+            <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="/post/orderByName"><i class="fa-solid fa-arrow-down-a-z"></i>  Zoradit podla nazvu</a></li>
+            </ul>
+        </div>
+        {% endif %}
+    </form>
+    <!-- Loop na zobrazenie postov aj tych ktore sa uz vykonali -->
+    {% if 'admin' in user.roles %}
+        {% for post in posts %}
+            <div class="card mt-4"  style="padding: 20px;">
+                <a href="/post/pod_info/{{ post.ID }}">
+                    <div class="float-start">
+                        <h2 class="fa-solid" style="color:red">{{ post.nazov }}</h2> 
+{#                        <h3 class="fa-solid">{{ post.miesto_konania }}</h3> #}
+                        &nbsp;
+                        
+                    </div>
+{#                    <div class="float-end">#}
+{#                        <i class="fa-regular" style="color:blue">{{ post.typ }}</i> #}
+{#                        <i class="fa-regular" style="color:green">{{ post.region }}</i> #}
+{#                        <i class="fa-regular">{{ post.datum_konania | date('d. m. Y') }}</i>#}
+{#                        <a class="badge bg-danger" href="/post/delete/{{ post.id }}"><i class="fa-solid fa-trash"></i></a>#}
+{#                        <a class="badge bg-info" href="/post/updatered/{{ post.id }}"><i class="fa-solid fa-pen"></i></a> #}
+{#                    </div>#}
+                </a>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}

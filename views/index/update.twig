@@ -1,0 +1,35 @@
+{#{% extends '../base.twig' %}#}
+
+{#{% block content %}#}
+{#    <h1>Editnite post: </h1>#}
+{#    <!-- Zobrazenie formulara s predvyplnenymi datami z postu -->#}
+{#{% for post in post %}#}
+{#        <form action="/post/update/{{postId}}" method="post">#}
+{#            <div class="card mt-2">#}
+{#                <div class="card-header">Zmente udaje</div>#}
+{#                <div class="card-body">#}
+{#                    <label for="nazov">Nazov:</label>#}
+{#                    <input type="text" class="form-control" name="nazov" value="{{ post.nazov }}">#}
+{#                    <label for="popis">Popis:</label>#}
+{#                    <textarea class="form-control" name="popis">{{ post.popis }}</textarea>#}
+{#                    <label for="typ">Typ:</label>#}
+{#                    <select class="form-control" name="typ">#}
+{#                      <option value="Koncert">Koncert</option>#}
+{#                      <option value="Divadlo">Divadlo</option>#}
+{#                      <option value="Vystava">Vystava</option>#}
+{#                      <option value="Zraz">Zraz</option>#}
+{#                    </select>#}
+{#                    <label for="dat_kon">Datum konania:</label>#}
+{#                    <input type="text" value="{{ post.datum_konania | date('Y-m-d') }}" class="form-control" name="dat_kon">#}
+{#                    <label for="mie_kon">Miesto konania:</label>#}
+{#                    <input type="text" class="form-control" name="mie_kon" value="{{ post.miesto_konania }}">#}
+{#                    <label for="region">Region:</label>#}
+{#                    <input type="text" class="form-control" name="region" value="{{ post.region }}">#}
+{#                </div>#}
+{#                <div class="card-footer">#}
+{#                    <input type="submit" class="btn btn-success float-end" value="Odoslať">#}
+{#                </div>#}
+{#            </div>#}
+{#        </form>#}
+{#{% endfor %}#}
+{#{% endblock %}#}
