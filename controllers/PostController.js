@@ -16,6 +16,15 @@ router.get("/recepty", async function (req, res) {
         posts: posts
     });
 });
+//Мой вариант, как отобразить ингредиенты
+router.get("/recepty", async function (req, res) {
+    // vyhladam v DB vsetky prispevky
+    let ingredient = await Posts.findUpcomingIngredient();
+
+    res.render('index/recepty.twig', {
+        ingredient: ingredient
+    });
+});
 
 /**
  * Zobrazit vsetky prispevky (pre admina)
@@ -53,7 +62,7 @@ router.get("/updatered/:ID", async function (req, res) {
         post: postinfo,
         ID: ID
     });
-    
+
 });
 
 /**
@@ -68,7 +77,7 @@ router.get("/pod_info/:ID", async function (req, res) {
         ID: ID,
         comments: comments
     });
-    
+
 });
 
 /**
@@ -105,6 +114,8 @@ router.post('/update/:ID', authorize('admin'), async function(req, res) {
 router.post("/new", authorize('user', 'admin'), async function (req, res) {
     // pockat na dokoncenie funkcie pre pridanie prispevku
     await Posts.addPost(req.body.nazov, req.body.postup, req.body.cas_pripravy, req.body.narocnost, req.body.kategoria);
+    //pridanie ingredientov
+    await Posts.addIngrediencia(req.body.ingredient, req.body.cislo, req.body.jednotka);
     await req.flash('success', 'Príspevok bol pridaný.')
 
     // presmerovat na zobrazenie vsetkych prispevkov

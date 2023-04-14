@@ -86,12 +86,20 @@ async function orderByName() {
  * @param jednotka
  * @returns {Promise<*>}
  */
-async function ingrediencia(ID, ingredient, cislo, jednotka) {
+async function addIngrediencia(ID, ingredient, cislo, jednotka) {
     await Db.query(
         'INSERT INTO Ingrediencia(ingredient, cislo, jednotka) VALUES (:ingredient, :cislo, :jednotka)',
         {ingredient: ingredient, cislo: cislo, jednotka: jednotka}
     );
 }
+/**
+ * Vratit zoznam nastavajucich prispevkov.
+ * @returns {Promise<*>}
+ */
+async function findUpcomingIngredient() {
+    return Db.query('SELECT * FROM Ingrediencia');
+}
+
 
 /**
  * Vratit zoznam nastavajucich prispevkov.
@@ -102,4 +110,4 @@ async function findUpcomingPosts() {
 }
 
 
-export {addPost, findAllPosts, deletePost, getPost, updatePost, orderByName, ingrediencia, findUpcomingPosts}
+export {addPost, findAllPosts, deletePost, getPost, updatePost, orderByName, addIngrediencia, findUpcomingIngredient , findUpcomingPosts}

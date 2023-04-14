@@ -6,48 +6,56 @@
         <div class="card mt-4">
             <div class="card-header">
                 <div class="float-start">
-                    <h2 class="fa-solid" style="color:red">{{ post.nazov }}</h2>
+                    <h2 class="fa-solid" style="color:blue">{{ post.nazov }}</h2>
                     &nbsp;
                 </div>
-{#                <div class="float-end">#}
-{#                    <i class="fa-regular" style="color:blue">{{ post.typ }}</i> #}
-{#                    <i class="fa-regular" style="color:green">{{ post.region }}</i> #}
-{#                    <i class="fa-regular">{{ post.datum_konania | date('d. m. Y') }}</i> #}
-{#                </div>#}
+                <div class="float-end">
+                    <i class="fa-regular" style="color:blueviolet">Kategoria: {{ post.kategoria }}</i>
+                </div>
             </div>
             <div class="card-body">
+                <h3>Postup:</h3>
                 <p>{{ post.postup }}</p>
+                <h3>Narocnost:</h3>
+                <p>{{ post.narocnost }}</p>
+                <h3>Cas pripravy:</h3>
+                <p>{{ post.cas_pripravy }} minut.</p>
+            </div>
+            <div class="card-body">
+                <h3>Ingrediencia:</h3>
+                <p>{{ ingredient.ingredient }}</p>
+
             </div>
         </div>
     {% endfor %}
     <!-- Formular na vyplnenie komentaru -->
     <form action="/comment/add/{{ID}}" method="post">
-    <div class="card mt-2" style="max-width: 800px;">
-        <div class="card-header">Pridajte komentar</div>
+        <div class="card mt-2" style="max-width: 800px;">
+            <div class="card-header">Pridajte komentar</div>
             <div class="card-body">
                 <label for="autor">Autor:</label>
                 <input type="text" class="form-control" name="autor">
                 <label for="message">Sprava:</label>
                 <textarea class="form-control" name="message"></textarea>
             </div>
-        <div class="card-footer">
-            <input type="submit" class="btn btn-success float-end" value="Odoslať">
+            <div class="card-footer">
+                <input type="submit" class="btn btn-success float-end" value="Odoslať">
+            </div>
         </div>
-    </div>
     </form>
     <!-- Loop na zobrazenie komentarov -->
     {% for comment in comments %}
         <div class="card mt-4" style="max-width: 800px;">
             <div class="card-header">
                 <div class="float-start">
-                    <p class="fa-solid fa-user">{{ comment.autor }}</p> 
+                    <p class="fa-solid fa-user">{{ comment.autor }}</p>
                     &nbsp;
                 </div>
                 <div class="float-end">
                     <i class="fa-solid fa-clock">{{ comment.created_at | date('d. m. Y') }}</i>
                     {% if 'admin' in user.roles %}
                         <a class="badge bg-danger" href="/comment/delete/{{ comment.id }}/{{ comment.post_id }}"><i class="fa-solid fa-trash"></i></a>
-                    {% endif %} 
+                    {% endif %}
                 </div>
             </div>
             <div class="card-body">
